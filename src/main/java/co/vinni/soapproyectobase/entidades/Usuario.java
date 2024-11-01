@@ -26,7 +26,6 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private Long id;
 
-
     @Column(name = "USERNAME" , unique = true)
     private String username;
 
@@ -36,8 +35,14 @@ public class Usuario implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "LOGRO")
-    private String logro;
+    @Column(name = "NIVEL")
+    private String nivel;
+
+    @Column(name = "IMPLACABLE")
+    private String implacable;
+
+    @Column(name = "IMPARABLE")
+    private String imparable;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Historial> historiales = new ArrayList<>();

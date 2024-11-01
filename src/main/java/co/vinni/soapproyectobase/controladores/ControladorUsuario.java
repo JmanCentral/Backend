@@ -69,4 +69,16 @@ public class ControladorUsuario {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         }
     }
+
+    @PutMapping("/{username}/nivel")
+    public ResponseEntity<Void> actualizarNivel(@PathVariable String username) {
+        try {
+            servicioUsuario.actualizarNivelUsuario(username);
+            return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }

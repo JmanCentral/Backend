@@ -21,5 +21,7 @@ public interface RepositorioHistorial extends JpaRepository<Historial, Long> , J
     @Query("SELECT SUM(h.puntaje) FROM Historial h WHERE h.usuario.username = :username")
     Integer getTotalPuntosDelUsuario(@Param("username") String username);
 
+
+
 }
 

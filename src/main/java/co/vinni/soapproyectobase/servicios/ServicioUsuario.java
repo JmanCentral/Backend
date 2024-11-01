@@ -26,11 +26,16 @@ public class ServicioUsuario  implements Serializable {
         }
 
         Usuario nuevoUsuario = modelMapper.map(usuarioDto, Usuario.class);
-        nuevoUsuario.setLogro("Novato");
+
+        nuevoUsuario.setNivel("Novato");
+        nuevoUsuario.setImplacable("sin desbloquear");
+        nuevoUsuario.setImparable("sin desbloquear");
+
         Usuario usuarioGuardado = repositorioUsuario.save(nuevoUsuario);
         return modelMapper.map(usuarioGuardado, UsuarioDTO.class);
-    }
 
+
+    }
 
     public UsuarioDTO VerificarUsuario(String usuario , String password) {
         
@@ -42,23 +47,8 @@ public class ServicioUsuario  implements Serializable {
 
         Usuario user = usuarios.get();
         return modelMapper.map(user , UsuarioDTO.class);
-
     }
 
-    public void actualizarLogro(Usuario usuario, int puntaje, String dificultad) {
-        String logro = usuario.getLogro();
-
-        if (dificultad.equals("Difícil") && puntaje > 80) {
-            logro = "Experto";
-        } else if (dificultad.equals("Media") && puntaje > 50) {
-            logro = "Intermedio";
-        } else if (dificultad.equals("Fácil") && puntaje > 30) {
-            logro = "Novato";
-        }
-
-        usuario.setLogro(logro);
-        repositorioUsuario.save(usuario);
-    }
 
     public Optional<UsuarioDTO> verificarusuarioexistente(String username) {
 
@@ -80,6 +70,27 @@ public class ServicioUsuario  implements Serializable {
             return false;
         }
     }
+
+    public void actualizarNivelUsuario(String username) {
+
+        Integer puntajeTotal = repositorioHistorial.getTotalPuntosDelUsuario(username);
+        Optional<Usuario> usuarioOptional = repositorioUsuario.findByUsername(username);
+
+        if (usuarioOptional.isPresent()) {
+            Usuario usuario = usuarioOptional.get();
+
+            if (puntajeTotal != null && puntajeTotal > 100) {
+                usuario.setNivel("Experto");
+            } else {
+                usuario.setNivel("Novato");
+            }
+
+            repositorioUsuario.save(usuario);
+        } else {
+            throw new IllegalArgumentException("Usuario con username " + username + " no existe");
+        }
+    }
+
 
 
 }
