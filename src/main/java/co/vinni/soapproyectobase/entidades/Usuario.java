@@ -38,11 +38,11 @@ public class Usuario implements Serializable {
     @Column(name = "NIVEL")
     private String nivel;
 
-    @Column(name = "IMPLACABLE")
-    private String implacable;
+    @Column(name = "LOGRO1")
+    private String logro1;
 
-    @Column(name = "IMPARABLE")
-    private String imparable;
+    @Column(name = "LOGRO2")
+    private String logro2;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Historial> historiales = new ArrayList<>();

@@ -78,6 +78,6 @@ public class ServicioHistorial {
             return repositorioHistorial.getTotalPuntosDelUsuario(username);
         }
 
-        
+
 }
 

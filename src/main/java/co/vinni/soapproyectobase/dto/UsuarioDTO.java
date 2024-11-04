@@ -20,7 +20,7 @@ public class UsuarioDTO implements Serializable {
     private String password;
     private String email;
     private String nivel;
-    private String implacable;
-    private String imparable;
+    private String logro1;
+    private String logro2;
 
 }

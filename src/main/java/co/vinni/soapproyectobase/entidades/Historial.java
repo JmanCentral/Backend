@@ -27,7 +27,7 @@ public class Historial {
     private String fecha;
 
     @Column(name = "TIEMPO")
-    private String tiempo;
+    private int tiempo;
 
     @Column(name = "AYUDAS")
     private int ayudas;
@@ -39,7 +39,6 @@ public class Historial {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pregunta", nullable = false)
     private Pregunta pregunta;
-
 
 }
 

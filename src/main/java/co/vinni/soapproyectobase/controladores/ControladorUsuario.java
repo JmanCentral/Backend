@@ -73,7 +73,7 @@ public class ControladorUsuario {
     @PutMapping("/{username}/nivel")
     public ResponseEntity<Void> actualizarNivel(@PathVariable String username) {
         try {
-            servicioUsuario.actualizarNivelUsuario(username);
+            servicioUsuario.actualizarUsuarioPorHistorial(username);
             return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
