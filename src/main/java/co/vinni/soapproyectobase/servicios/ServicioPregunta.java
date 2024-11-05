@@ -27,9 +27,21 @@ public class ServicioPregunta implements Serializable {
     public void insertAllPreguntas() {
         List<PreguntaDTO> preguntaDTOs = crearPreguntas();
 
-        // Iterar sobre cada PreguntaDTO
-        for (PreguntaDTO dto : preguntaDTOs) {
+        // Obtener todas las preguntas de la base de datos
+        List<Pregunta> preguntasExistentes = repositorioPregunta.findAll();
 
+        // Convertir lista de PreguntaDTO a preguntas (para comparar)
+        List<String> preguntasNuevas = preguntaDTOs.stream()
+                .map(PreguntaDTO::getPregunta)
+                .collect(Collectors.toList());
+
+        for (Pregunta preguntaExistente : preguntasExistentes) {
+            if (!preguntasNuevas.contains(preguntaExistente.getPregunta())) {
+                repositorioPregunta.delete(preguntaExistente);
+            }
+        }
+
+        for (PreguntaDTO dto : preguntaDTOs) {
             List<Pregunta> existentes = repositorioPregunta.findByPregunta(dto.getPregunta());
 
             if (existentes.isEmpty()) {
@@ -38,6 +50,7 @@ public class ServicioPregunta implements Serializable {
             }
         }
     }
+
 
 
 

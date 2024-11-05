@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -41,6 +44,9 @@ public class Pregunta {
 
     @Column(name = "DIFICULTAD")
     private String dificultad;
+
+    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Historial> historiales = new ArrayList<>();
 
 }
 
