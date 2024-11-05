@@ -89,27 +89,23 @@ public class ServicioUsuario  implements Serializable {
         if (usuarioOptional.isPresent()) {
             Usuario usuario = usuarioOptional.get();
 
-            // Actualizar nivel basado en el puntaje total
             if (puntajeTotal != null && puntajeTotal > 100) {
                 usuario.setNivel("Experto");
             } else {
                 usuario.setNivel("Novato");
             }
 
-            // Verificar si el tiempo total es menor a 2 minutos (120 segundos)
             if (tiempoTotal != null && tiempoTotal < 120) {
                 // Asignar un logro o un mensaje al usuario
-                usuario.setLogro1("Tiempo Total: Menos de 2 minutos");
+                usuario.setLogro1("Muy Rapido");
             }
 
-            // Otras condiciones opcionales para logros basados en el total de ayudas
             if (totalAyudas != null && totalAyudas == 0) {
-                usuario.setLogro2("Eres todo un rebelde");
+                usuario.setLogro2("Invencible");
             } else if (totalAyudas != null && totalAyudas < 30) {
-                usuario.setLogro2("Niño de mami");
+                usuario.setLogro2("Loser");
             }
 
-            // Guardar los cambios en el repositorio de Usuario
             repositorioUsuario.save(usuario);
 
         } else {

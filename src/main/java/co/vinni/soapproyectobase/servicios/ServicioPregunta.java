@@ -55,6 +55,8 @@ public class ServicioPregunta implements Serializable {
                 new PreguntaDTO(null, "¿Cuánto es 7 + 7?", "12", "13", "14", "15", "14", "matematicas", "facil"),
                 new PreguntaDTO(null, "¿Cuánto es 9 - 4?", "4", "5", "6", "7", "5", "matematicas", "facil"),
                 new PreguntaDTO(null, "¿Cuánto es 8 * 2?", "12", "14", "16", "18", "16", "matematicas", "facil"),
+                new PreguntaDTO(null, "¿Cuánto es sen (0)?", "0", "1", "-1", "indefinido", "0", "matematicas", "facil"),
+
 
                 // Preguntas intermedias
                 new PreguntaDTO(null, "¿Cuánto es 25 * 3?", "60", "70", "75", "80", "75", "matematicas", "intermedio"),
