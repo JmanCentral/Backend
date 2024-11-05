@@ -44,6 +44,16 @@ public class Usuario implements Serializable {
     @Column(name = "LOGRO2")
     private String logro2;
 
+    @Column(name = "LOGRO3")
+    private String logro3;
+
+    @Column(name = "LOGRO4")
+    private String logro4;
+
+    @Column(name = "LOGRO5")
+    private String logro5;
+
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Historial> historiales = new ArrayList<>();
 

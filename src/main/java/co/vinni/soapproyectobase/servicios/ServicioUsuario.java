@@ -32,6 +32,11 @@ public class ServicioUsuario  implements Serializable {
         nuevoUsuario.setNivel("Novato");
         nuevoUsuario.setLogro1("sin desbloquear");
         nuevoUsuario.setLogro2("sin desbloquear");
+        nuevoUsuario.setLogro3("sin desbloquear");
+        nuevoUsuario.setLogro4("sin desbloquear");
+        nuevoUsuario.setLogro5("sin desbloquear");
+
+
 
         Usuario usuarioGuardado = repositorioUsuario.save(nuevoUsuario);
         return modelMapper.map(usuarioGuardado, UsuarioDTO.class);
@@ -74,16 +79,11 @@ public class ServicioUsuario  implements Serializable {
     }
 
     public void actualizarUsuarioPorHistorial(String username) {
-        // Obtener el puntaje total del usuario
         Integer puntajeTotal = repositorioHistorial.getTotalPuntosDelUsuario(username);
-
-        // Obtener el total de ayudas del usuario
         Integer totalAyudas = repositorioHistorial.getTotalAyudasDelUsuario(username);
-
-        // Obtener el tiempo total del usuario
         Integer tiempoTotal = repositorioHistorial.getTiempoTotalDelUsuario(username);
 
-        // Buscar el usuario por username
+        List<Object[]> dificultadesYCategorias = repositorioHistorial.getDificultadYCategoriaPorUsuario(username);
         Optional<Usuario> usuarioOptional = repositorioUsuario.findByUsername(username);
 
         if (usuarioOptional.isPresent()) {
@@ -96,7 +96,6 @@ public class ServicioUsuario  implements Serializable {
             }
 
             if (tiempoTotal != null && tiempoTotal < 120) {
-                // Asignar un logro o un mensaje al usuario
                 usuario.setLogro1("Muy Rapido");
             }
 
@@ -106,12 +105,68 @@ public class ServicioUsuario  implements Serializable {
                 usuario.setLogro2("Loser");
             }
 
+
+            boolean jugoCategoriaConDificultad = false;
+            String categoriaObjetivo = "matematicas";
+            String dificultadObjetivo = "dificil";
+
+            for (Object[] row : dificultadesYCategorias) {
+                String dificultad = (String) row[0];
+                String categoria = (String) row[1];
+                if (dificultad.equals(dificultadObjetivo) && categoria.equals(categoriaObjetivo)) {
+                    jugoCategoriaConDificultad = true;
+                    break;
+                }
+            }
+
+            if (jugoCategoriaConDificultad) {
+                usuario.setLogro3("Aprende a las malas");
+            }
+
+
+            boolean jugoCategoriaConDificultad1 = false;
+            String categoriaObjetivo1 = "geografia";
+            String dificultadObjetivo1 = "dificil";
+
+            for (Object[] row : dificultadesYCategorias) {
+                String dificultad = (String) row[0];
+                String categoria = (String) row[1];
+                if (dificultad.equals(dificultadObjetivo1) && categoria.equals(categoriaObjetivo1)) {
+                    jugoCategoriaConDificultad1 = true;
+                    break;
+                }
+            }
+
+            if (jugoCategoriaConDificultad1) {
+                usuario.setLogro4("Conocedor");
+            }
+
+            boolean jugoCategoriaConDificultad2 = false;
+            String categoriaObjetivo2 = "literatura";
+            String dificultadObjetivo2 = "dificil";
+
+            for (Object[] row : dificultadesYCategorias) {
+                String dificultad = (String) row[0];
+                String categoria = (String) row[1];
+                if (dificultad.equals(dificultadObjetivo2) && categoria.equals(categoriaObjetivo2)) {
+                    jugoCategoriaConDificultad2 = true;
+                    break;
+                }
+            }
+
+            if (jugoCategoriaConDificultad2) {
+                usuario.setLogro5("Cosas de neruda");
+            }
+
+
+
             repositorioUsuario.save(usuario);
 
         } else {
             throw new IllegalArgumentException("Usuario con username " + username + " no existe");
         }
     }
+
 
 
 

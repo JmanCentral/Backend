@@ -22,5 +22,8 @@ public class UsuarioDTO implements Serializable {
     private String nivel;
     private String logro1;
     private String logro2;
+    private String logro3;
+    private String logro4;
+    private String logro5;
 
 }

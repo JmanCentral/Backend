@@ -12,5 +12,4 @@ public interface RepositorioPregunta extends JpaRepository<Pregunta, Long> , Jpa
 
     List<Pregunta> findByPregunta(String pregunta);
 
-
 }
