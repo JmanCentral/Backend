@@ -158,21 +158,12 @@ public class ServicioUsuario  implements Serializable {
                 usuario.setLogro5("Cosas de neruda");
             }
 
-
-
             repositorioUsuario.save(usuario);
 
         } else {
             throw new IllegalArgumentException("Usuario con username " + username + " no existe");
         }
     }
-
-
-
-
-
-
-
 
 
 }

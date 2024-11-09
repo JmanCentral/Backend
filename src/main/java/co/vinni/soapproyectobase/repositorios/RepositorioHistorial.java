@@ -31,6 +31,5 @@ public interface RepositorioHistorial extends JpaRepository<Historial, Long> , J
     @Query("SELECT h.pregunta.dificultad, h.pregunta.categoria FROM Historial h WHERE h.usuario.username = :username")
     List<Object[]> getDificultadYCategoriaPorUsuario(@Param("username") String username);
 
-
 }
 

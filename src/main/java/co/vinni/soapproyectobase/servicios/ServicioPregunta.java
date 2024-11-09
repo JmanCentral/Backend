@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,10 +59,7 @@ public class ServicioPregunta implements Serializable {
         return List.of(
 
                 // Preguntas fáciles
-                new PreguntaDTO(null, "¿Cuánto es 5 + 3?", "6", "7", "8", "9", "8", "matematicas", "facil"),
-                new PreguntaDTO(null, "¿Cuál es el valor de π (Pi) aproximadamente?", "3", "2", "4", "1", "3", "matematicas", "facil"),
-                new PreguntaDTO(null, "¿Cuánto es 10 - 6?", "5", "6", "3", "4", "4", "matematicas", "facil"),
-                new PreguntaDTO(null, "¿Cuánto es 2 * 2?", "2", "4", "6", "8", "4", "matematicas", "facil"),
+
                 new PreguntaDTO(null, "¿Cuánto es 12 ÷ 4?", "1", "2", "3", "4", "3", "matematicas", "facil"),
                 new PreguntaDTO(null, "¿Cuántos lados tiene un triángulo?", "4", "3", "5", "2", "3", "matematicas", "facil"),
                 new PreguntaDTO(null, "¿Cuál es el número primo más pequeño?", "1", "2", "3", "5", "2", "matematicas", "facil"),
@@ -82,6 +80,17 @@ public class ServicioPregunta implements Serializable {
                 new PreguntaDTO(null, "¿Cuánto es el perímetro de un cuadrado con lados de 5 cm?", "10 cm", "15 cm", "20 cm", "25 cm", "20 cm", "matematicas", "intermedio"),
                 new PreguntaDTO(null, "¿Cuánto es el área de un círculo con radio 7 (π=3.14)?", "154", "44", "66", "132", "154", "matematicas", "intermedio"),
                 new PreguntaDTO(null, "Si un tren viaja a 80 km/h, ¿cuánto tiempo tardará en recorrer 240 km?", "1 hora", "2 horas", "3 horas", "4 horas", "3 horas", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "¿Cuánto es 45 ÷ 9?", "3", "4", "5", "6", "5", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "¿Cuánto es el cubo de 3 (3^3)?", "9", "27", "18", "36", "27", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "¿Cuál es el valor de la raíz cúbica de 64?", "3", "4", "5", "6", "4", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "¿Cuánto es 7 * 8?", "54", "56", "64", "72", "56", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "¿Cuánto es 20% de 200?", "20", "30", "40", "50", "40", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "¿Cuánto es 9^2 (9 al cuadrado)?", "72", "81", "91", "100", "81", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "Si un automóvil viaja a 90 km/h, ¿cuánto recorrerá en 3 horas?", "180 km", "270 km", "360 km", "450 km", "270 km", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "¿Cuál es la suma de los ángulos interiores de un triángulo?", "90°", "120°", "180°", "360°", "180°", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "Si un número es divisible por 2 y 3, ¿por cuál otro número es divisible?", "5", "6", "8", "12", "6", "matematicas", "intermedio"),
+                new PreguntaDTO(null, "¿Cuánto es 11 * 11?", "110", "111", "121", "131", "121", "matematicas", "intermedio"),
+
 
                 // Preguntas difíciles
                 new PreguntaDTO(null, "¿Cuánto es 15 * 17?", "245", "255", "265", "275", "255", "matematicas", "dificil"),
@@ -245,9 +254,16 @@ public class ServicioPregunta implements Serializable {
         );
     }
 
+
+
     public List<PreguntaDTO> getTodasLasPreguntas(String categoria , String dificultad) {
         List<Pregunta> preguntas = repositorioPregunta.findByCategoriaAndDificultad(categoria , dificultad);
-        return preguntas.stream()
+
+        Collections.shuffle(preguntas);
+
+        List<Pregunta> preguntasAleatorias = preguntas.subList(0, Math.min(10, preguntas.size()));
+
+        return preguntasAleatorias.stream()
                 .map(pregunta -> modelMapper.map(pregunta, PreguntaDTO.class))
                 .collect(Collectors.toList());
     }
