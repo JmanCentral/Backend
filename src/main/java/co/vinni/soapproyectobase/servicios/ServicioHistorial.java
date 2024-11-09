@@ -31,20 +31,22 @@ public class ServicioHistorial {
     public HistorialDTO registrarHistorial(HistorialDTO historialDto) {
 
         Usuario usuario = obtenerUsuarioPorId(historialDto.getId_usuario());
-        Pregunta pregunta = obtenerPreguntaPorId(historialDto.getId_pregunta());
+
+        List<Pregunta> preguntas = historialDto.getIds_preguntas().stream()
+                .map(this::obtenerPreguntaPorId)
+                .collect(Collectors.toList());
 
         Historial historial = modelMapper.map(historialDto, Historial.class);
         historial.setUsuario(usuario);
-        historial.setPregunta(pregunta);
+        historial.setPreguntas(preguntas);
 
         Historial historialGuardado = repositorioHistorial.save(historial);
 
         HistorialDTO historialGuardadoDto = modelMapper.map(historialGuardado, HistorialDTO.class);
         historialGuardadoDto.setId_usuario(usuario.getId());
-        historialGuardadoDto.setId_pregunta(pregunta.getId_pregunta());
         historialGuardadoDto.setUsername(usuario.getUsername());
-        historialGuardadoDto.setCategoria(pregunta.getCategoria());
-        historialGuardadoDto.setDificultad(pregunta.getDificultad());
+
+        // Opcional: agregar más información si se necesita
 
         return historialGuardadoDto;
     }
@@ -65,16 +67,22 @@ public class ServicioHistorial {
                 .map(historial -> {
                     HistorialDTO historialDto = modelMapper.map(historial, HistorialDTO.class);
                     historialDto.setId_usuario(historial.getUsuario().getId());
-                    historialDto.setId_pregunta(historial.getPregunta().getId_pregunta());
                     historialDto.setUsername(historial.getUsuario().getUsername());
-                    historialDto.setCategoria(historial.getPregunta().getCategoria());
-                    historialDto.setDificultad(historial.getPregunta().getDificultad());
+
+                    // Suponemos que todas las preguntas tienen la misma categoría y dificultad
+                    if (!historial.getPreguntas().isEmpty()) {
+                        Pregunta primeraPregunta = historial.getPreguntas().get(0);  // Tomamos la primera pregunta
+                        historialDto.setCategoria(primeraPregunta.getCategoria());
+                        historialDto.setDificultad(primeraPregunta.getDificultad());
+                    }
+
                     return historialDto;
                 })
                 .collect(Collectors.toList());
     }
 
-        public Integer obtenerTotalPuntosPorUsuario(String username) {
+
+    public Integer obtenerTotalPuntosPorUsuario(String username) {
             return repositorioHistorial.getTotalPuntosDelUsuario(username);
         }
 

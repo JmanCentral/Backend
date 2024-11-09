@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -36,9 +39,14 @@ public class Historial {
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_pregunta", nullable = false)
-    private Pregunta pregunta;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Pregunta_Historial",
+            joinColumns = @JoinColumn(name = "id_historial"),
+            inverseJoinColumns = @JoinColumn(name = "id_pregunta")
+    )
+    private List<Pregunta> preguntas = new ArrayList<>();
 
 }
 

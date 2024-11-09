@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "PREGUNTA")
-public class Pregunta {
+
+public class Pregunta implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +47,6 @@ public class Pregunta {
     @Column(name = "DIFICULTAD")
     private String dificultad;
 
-    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "preguntas")
     private List<Historial> historiales = new ArrayList<>();
-
 }
-

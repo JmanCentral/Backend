@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -20,9 +22,10 @@ public class HistorialDTO {
     private int tiempo;
     private int ayudas;
     private Long id_usuario;
-    private Long id_pregunta;
     private String username;
+    private List<Long> ids_preguntas;
     private String categoria;
     private String dificultad;
+
 
 }

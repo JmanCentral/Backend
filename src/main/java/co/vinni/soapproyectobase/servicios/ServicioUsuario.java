@@ -83,7 +83,7 @@ public class ServicioUsuario  implements Serializable {
         Integer totalAyudas = repositorioHistorial.getTotalAyudasDelUsuario(username);
         Integer tiempoTotal = repositorioHistorial.getTiempoTotalDelUsuario(username);
 
-        List<Object[]> dificultadesYCategorias = repositorioHistorial.getDificultadYCategoriaPorUsuario(username);
+      //  List<Object[]> dificultadesYCategorias = repositorioHistorial.getDificultadYCategoriaPorUsuario(username);
         Optional<Usuario> usuarioOptional = repositorioUsuario.findByUsername(username);
 
         if (usuarioOptional.isPresent()) {
@@ -105,6 +105,7 @@ public class ServicioUsuario  implements Serializable {
                 usuario.setLogro2("Loser");
             }
 
+            /*
 
             boolean jugoCategoriaConDificultad = false;
             String categoriaObjetivo = "matematicas";
@@ -157,6 +158,8 @@ public class ServicioUsuario  implements Serializable {
             if (jugoCategoriaConDificultad2) {
                 usuario.setLogro5("Cosas de neruda");
             }
+
+             */
 
             repositorioUsuario.save(usuario);
 
