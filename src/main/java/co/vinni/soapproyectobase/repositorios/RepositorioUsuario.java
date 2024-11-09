@@ -8,13 +8,9 @@ import java.util.Optional;
 
 public interface RepositorioUsuario extends JpaRepository<Usuario, Long> , JpaSpecificationExecutor<Usuario> {
 
-
     Optional<Usuario> findByUsernameAndPassword(String username, String password);
 
     Optional<Usuario> findByUsername(String username);
-
-
-
 
 }
 

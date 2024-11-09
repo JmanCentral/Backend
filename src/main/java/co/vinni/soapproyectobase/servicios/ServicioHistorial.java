@@ -25,7 +25,6 @@ public class ServicioHistorial {
     private RepositorioHistorial repositorioHistorial;
     private final RepositorioUsuario repositorioUsuario;
     private final RepositorioPregunta repositorioPregunta;
-
     @Autowired
     private ServicioUsuario servicioUsuario;
 
@@ -39,8 +38,6 @@ public class ServicioHistorial {
         historial.setPregunta(pregunta);
 
         Historial historialGuardado = repositorioHistorial.save(historial);
-
-        servicioUsuario.actualizarLogro(usuario, historial.getPuntaje(), historial.getPregunta().getDificultad());
 
         HistorialDTO historialGuardadoDto = modelMapper.map(historialGuardado, HistorialDTO.class);
         historialGuardadoDto.setId_usuario(usuario.getId());
@@ -81,6 +78,6 @@ public class ServicioHistorial {
             return repositorioHistorial.getTotalPuntosDelUsuario(username);
         }
 
-        
+
 }
 

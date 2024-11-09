@@ -17,7 +17,7 @@ public class HistorialDTO {
     private Long id;
     private int puntaje;
     private String fecha;
-    private String tiempo;
+    private int tiempo;
     private int ayudas;
     private Long id_usuario;
     private Long id_pregunta;
