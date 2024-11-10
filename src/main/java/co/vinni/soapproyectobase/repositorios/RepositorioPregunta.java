@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RepositorioPregunta extends JpaRepository<Pregunta, Long> , JpaSpecificationExecutor<Pregunta> {
 
-    List<Pregunta> findByCategoriaAndDificultad(String categoria , String dificultad);
+    List<Pregunta> findByCategoriaAndDificultadAndEstado(String categoria , String dificultad , boolean estado);
 
     List<Pregunta> findByPregunta(String pregunta);
 

@@ -45,6 +45,9 @@ public class Pregunta {
     @Column(name = "DIFICULTAD")
     private String dificultad;
 
+    @Column(name = "ESTADO")
+    private boolean estado;
+
     @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Historial> historiales = new ArrayList<>();
 

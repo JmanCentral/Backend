@@ -24,6 +24,8 @@ public class PreguntaDTO implements Serializable {
     private String respuesta;
     private String categoria;
     private String dificultad;
+    private boolean estado;
+
 
 
 }
